@@ -2,7 +2,7 @@
 
 apt-get dist-upgrade -y -qq && apt-get upgrade -y -qq && apt-get update -y -qq
 ln -snf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && echo Asia/Kolkata > /etc/timezone
-apt-get install --no-install-recommends -y -qq aria2 bc bison ca-certificates cpio curl file gcc git lib{c6,c,ssl,xml2}-dev make python2 unzip zip
+apt-get install --no-install-recommends -y -qq aria2 bc bison ca-certificates cpio curl file gcc git lib{c6,c,ssl,xml2}-dev make python3 python-pip unzip zip
 apt-get autoremove -y && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
 
 t2h() {
@@ -25,9 +25,11 @@ get() {
     find "/usr/${3}" -exec chmod +x {} \; && rem "$3"
 }
 
-get XSans02/Weeb-Clang main clang
 get mvaisakh/gcc-arm64 gcc-master gcc64
 get mvaisakh/gcc-arm gcc-master gcc32
+curl -LSs https://gitlab.com/ElectroPerf/atom-x-clang/-/archive/atom-15/atom-x-clang-atom-15.zip -o "clang".zip
+unzip "clang".zip -d. && rm "clang".zip && mv -v "atom-x-clang-atom-15" "/usr/clang"
+find "/usr/clang" -exec chmod +x {} \; && rem "clang"
 
 cd /usr/clang && rep 'Weeb' 'Zer0' && rep 'github.com/llvm/llvm-project' 'youtu.be/watch?v=dQw4w9WgXcQ' && cd /
 
